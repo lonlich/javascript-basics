@@ -9,26 +9,20 @@
 //Another string – show “Wrong password”,
 //For an empty string or cancelled input, show “Canceled”
 
+const login = prompt("Who goes there?").trim();
 
-const login = prompt('Who goes there?').trim();
+if (login === null || login === "") {
+  alert("Canceled");
+} else if (!(login === "Admin")) {
+  alert("I don't know you");
+} else {
+  const password = prompt("Enter your password").trim();
 
-if ( login === null || login === '' ) {
-    alert('Canceled');
-}
-else if (!(login === 'Admin' )) {
-    alert('I don\'t know you');
-}
-
-else {
-    const password = prompt('Enter your password').trim();
-
-    if ( password === null || password === '' ) {
-        alert('Canceled');
-    }
-    else if (!(password === 'TheMaster' )) {
-        alert('I don\'t know you');
-    }
-    else {
-        alert('Welcome!');
-    }
+  if (password === null || password === "") {
+    alert("Canceled");
+  } else if (!(password === "TheMaster")) {
+    alert("I don't know you");
+  } else {
+    alert("Welcome!");
+  }
 }
