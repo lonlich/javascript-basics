@@ -11,24 +11,3 @@ function formatCurrency(strings, currencySymbolExp, currencyAmountExp) {
 const message = formatCurrency`You have ${currencySymbol}${currencyAmount}`;
 
 alert(message);
-
-
-
-
-const login = prompt('Who goes there?').trim();
-
-if (!login) {  
-    alert('Canceled');
-} else if (login.toLowerCase() === 'admin') {  
-    const password = prompt('Enter your password').trim();
-
-    if (!password) {  
-        alert('Canceled');
-    } else if (password === 'TheMaster') {
-        alert('Welcome!');
-    } else {
-        alert('Wrong password'); 
-    }
-} else {
-    alert('I don’t know you');
-}
