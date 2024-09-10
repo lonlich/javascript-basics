@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+function setupServer({ host = "localhost", port = 8080 } = {}) {
+  console.log(`Server running on http://${host}:${port}`);
+}
+
+setupServer(); // Output: Server running on http://localhost:8080
+setupServer({ port: 3000 }); // Output: Server running on http://localhost:3000
+setupServer({ host: "192.168.1.1", port: 3000 }); // Output: Server running on http://192.168.1.1:3000
+
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} makes a noise.`);
+  }
+}
+
+class Dog extends Animal {
+    speak() {
+    super.speak(); // Calls the parent class's speak method
+    console.log(`${this.name} barks.`);
+  }
+}
+
+const dog = new Dog('Rex');
+dog.speak(); // Rex barks.
+
+
+class Book {
+  constructor(title, author) {
+    this.title = title;
+    this.author = author;
+  }
+
+  borrow() {
+    console.log(`${this.title} has been borrowed.`);
+  }
+
+  read() {
+    console.log(`Reading "${this.title}" by ${this.author}.`);
+  }
+}
+
+class EBook extends Book {
+  constructor(title, author, fileSize) {
+    super(title, author);
+    this.fileSize = fileSize;
+  }
+
+  download() {
+    console.log(`Downloading ${this.title}, file size: ${this.fileSize}MB.`);
+  }
+
+  borrow() {
+    alert new Error("Borrowing is not available for eBooks.");
+  }
+}
+
+
+
+const ebook = new EBook('JavaScript Basics', 'John Doe', 5);
+ebook.download();   // Works
+ebook.read();       // Works
+ebook.borrow();     // Still works, but may not be needed for EBook
+
+
+</script>
+
+
+
+
+
+
+
+
+
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

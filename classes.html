@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    
+<script>
+
+//Книга
+//Поля: название, автор, год выпуска, кол-во страниц, есть ли аудиоверсия, взята ли напрокат, до какого числа взята напрокат
+//Методы: купить, взять напрокат, вернуть
+//
+//
+
+function addBook() {
+    const title = prompt('Enter book title');
+    const author = prompt('Enter book author');
+    const year = +prompt('Enter year of release');
+    const pages = +prompt('Enter number of pages');
+    const borrowedFor = +prompt('For how long do you want to borrow this book?')
+    let hasAudio = prompt('Does it have an audio version? Yes/No').toLowerCase().trim();
+    hasAudio = (hasAudio === 'yes');
+
+}
+
+class Book {
+    constructor(title, author, year, pages, hasAudio, isBorrowed = false, borrowedFor) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.pages = pages;
+        this.hasAudio = hasAudio;
+        this.isBorrowed = isBorrowed; // дефолтное значение - книга доступна
+        this.borrowedFor = borrowedFor; // 
+    }
+
+    //когда книгу берут напрокат, значение isBorrowed должно меняться на true
+    //
+    borrow() { 
+        if (!this.isBorrowed) {
+            this.isBorrowed = true;
+            console.log(`The book ${this.title} by ${this.author} was released in ${this.year} and has ${this.pages} pages. Please return it in ${this.borrowedFor} weeks.`);
+            if (this.hasAudio) {
+                console.log(`Are you sure you don't want to download the audio version?`);
+            }
+        } 
+        else {
+            console.log(`This book is currently borrowed. Please come back in ${borrowedFor} weeks`);
+        }
+    }
+}
+
+addBook();
+const book1 = new Book(title, author, year, pages, hasAudio, borrowedFor);
+
+//написать функцию для взятия книги напрокат с выбором количества недель из юзер инпута
+
+</script>
+
+
+
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
