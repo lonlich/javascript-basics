@@ -28,9 +28,13 @@ function addBook() {
     const pages = +prompt('Enter number of pages');
     const borrowedFor = +prompt('For how long do you want to borrow this book?')
     let hasAudio = prompt('Does it have an audio version? Yes/No').toLowerCase().trim();
-    hasAudio = (hasAudio === 'yes');
+    hasAudio ? (hasAudio === 'yes') true : false;
+
+    return {title, author, year, pages, borrowedFor, hasAudio};
 
 }
+
+const {title, author, year, pages, borrowedFor, hasAudio} = addBook(); //extract values from returned object and assign them to variables
 
 class Book {
     constructor(title, author, year, pages, hasAudio, isBorrowed = false, borrowedFor) {
@@ -59,8 +63,11 @@ class Book {
     }
 }
 
-addBook();
-const book1 = new Book(title, author, year, pages, hasAudio, borrowedFor);
+const book1 = new Book(title, author, year, pages, borrowedFor, hasAudio);
+console.log(book1);
+
+//addBook();
+//const book1 = new Book(title, author, year, pages, hasAudio, borrowedFor);
 
 //написать функцию для взятия книги напрокат с выбором количества недель из юзер инпута
 
