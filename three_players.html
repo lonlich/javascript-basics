@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 players</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    
+<script>
+
+
+
+
+class Player {
+    constructor(hp) {
+        this.hp = hp;
+    }
+
+    getDmg() {
+        const damage = Math.random().toFixed(2) * 100;
+        console.log(damage)
+        return damage;
+    }
+}
+
+const player1 = new Player (100);
+const player2 = new Player (100);
+const player3 = new Player (100);
+
+const players = [player1, player2, player3];
+
+function attack() {
+    player2.hp = player2.hp - player1.getDmg();
+    console.log(player2.hp)
+}
+
+attack();
+
+
+
+
+</script>
+
+
+
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
