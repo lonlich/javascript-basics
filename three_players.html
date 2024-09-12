@@ -19,32 +19,76 @@
 
 
 class Player {
-    constructor(hp) {
+    constructor(hp, name, isAlive = true) {
         this.hp = hp;
+        this.name = name;
+        this.isAlive = isAlive;
     }
 
-    getDmg() {
-        const damage = Math.random().toFixed(2) * 100;
-        console.log(damage)
+    attack() {
+        const damage = Math.random().toFixed(1) * 100;
         return damage;
     }
+
 }
 
-const player1 = new Player (100);
-const player2 = new Player (100);
-const player3 = new Player (100);
+const player1 = new Player (100, 'Player 1');
+const player2 = new Player (100, 'Player 2');
+const player3 = new Player (100, 'Player 3');
 
 const players = [player1, player2, player3];
 
-function attack() {
-    player2.hp = player2.hp - player1.getDmg();
-    console.log(player2.hp)
+// function attack() {
+//     player2.hp = player2.hp - player1.getDmg();
+// }
+
+let i = 0;
+let dead = false;
+let round = 1;
+let playersAlive = players.length;
+// while (!dead)
+
+while (playersAlive > 1 ) {
+    console.log(`Players alive: ${playersAlive}`);
+    console.log(`i = ${i}`);
+    const hitDamage = players[i].attack();
+
+    if (i >= players.length - 1) {
+        i = 0;
+        console.log(`${players[players.length - 1].name} attacks ${players[0].name} for ${hitDamage} damage`);
+        players[i].hp -= hitDamage;    
+        console.log(`${players[i].name} has ${players[i].hp} HP left`);
+        console.log(`i = ${i}`);
+
+        if ( players[0].hp <= 0 ) {
+        console.log(`${players[0].name} is dead!`)
+        players.splice((0), 1);
+        console.log (`Remaining players are ${players}`);
+        playersAlive -= 1;
+        console.log(`Players alive: ${playersAlive}`);
+        }
+    
+    } 
+    console.log(`${players[i].name} attacks ${players[i+1].name} for ${hitDamage} damage`);
+    players[i+1].hp -= hitDamage;
+    console.log(`${players[i+1].name} has ${players[i+1].hp} hp left`)
+    
+
+    if ( players[i+1].hp <= 0 ) {
+        console.log(`${players[i+1].name} is dead!`)
+        players.splice((i+1), 1);
+        
+        players.forEach (player => {
+            console.log(`Player alive ${player.name}`);
+        })
+        
+        playersAlive -= 1;
+    }
+
+    i++;
 }
 
-attack();
-
-
-
+console.log(`The winner is ${players[0].name}!`)
 
 </script>
 
