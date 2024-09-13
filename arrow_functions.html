@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow functions</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<input type="textBox" id="textBoxID">
+<p class="output"></p>
+
+    
+<script>
+
+const textBox = document.getElementById('textBoxID');
+const output = document.querySelector('p');
+const pressedKeys = [];
+
+textBox.addEventListener('keydown', (e) => {
+    const key = e.key;
+    output.textContent = `You pressed ${e.key}`;
+    pressedKeys.push(key);
+    console.log(pressedKeys);
+
+});
+
+
+</script>
+
+
+
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
