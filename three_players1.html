@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 players</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    
+<script>
+
+
+
+
+class Player {
+    constructor(name, hp) {
+        this.name = name;
+        this.hp = hp;
+    }
+
+    attack() {
+        const damage = Math.random().toFixed(2) * 100;
+        return damage;
+    }
+
+}
+
+const player1 = new Player ('Player 1', 100);
+const player2 = new Player ('Player 2', 100);
+const player3 = new Player ('Player 3', 100);
+
+const players = [player1, player2, player3];
+
+// function attack() {
+//     player2.hp = player2.hp - player1.getDmg();
+// }
+
+let i = 0;
+let round = 1;
+let playersAlive = players.length;
+let hitDamage = null;
+// while (!dead)
+
+while (playersAlive > 1 ) {
+    console.log(`Players alive: ${playersAlive}`);
+    console.log(`i = ${i}`);
+    console.table(players);
+    //последний ли это игрок в массиве? Если да, то он атакует первого игрока
+    if (i >= players.length - 1) {
+        i = 0;
+        hitDamage = players[players.length - 1].attack();
+        console.log(`${players[players.length - 1].name} attacks ${players[i].name} for ${hitDamage} damage`);
+        players[i].hp -= hitDamage;    
+        console.log(`${players[i].name} has ${players[i].hp} HP left`);
+        console.log(`i = ${i}`);
+
+        //remove dead 1st player
+        if ( players[i].hp <= 0 ) {
+        console.log(`${players[i].name} is dead!`)
+        
+        players.splice((i), 1); //?????????????????когда остается 2 игрока и умирает еще один, он не убирается из массива, а продолжает наносить удары
+        
+        players.forEach (player => {
+            console.log(`Player alive ${player.name}`);
+        })
+        console.table(players);
+        playersAlive -= 1;
+
+    }
+
+    continue;
+}
+    
+    hitDamage = players[i].attack();
+    players[i+1].hp -= hitDamage;
+
+    console.log(`${players[i].name} attacks ${players[i+1].name} for ${hitDamage} damage`);
+    console.log(`${players[i+1].name} has ${players[i+1].hp} hp left`)
+
+    if ( players[i+1].hp <= 0 ) {
+        console.log(`${players[i+1].name} is dead!`)
+        
+        players.splice((i+1), 1); //?????????????????когда остается 2 игрока и умирает еще один, он не убирается из массива, а продолжает наносить удары
+        
+        if ( i === players.length - 1) {
+            i = -1;
+        }
+        
+        players.forEach (player => {
+            console.log(`Player alive ${player.name}`);
+        })
+        console.table(players);
+        playersAlive -= 1;
+
+    }
+
+    i++;
+}
+
+console.log(`The winner is ${players[0].name}!`)
+
+</script>
+
+
+
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
