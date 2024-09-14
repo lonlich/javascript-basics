@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Function library example</title>
+    <style>
+      input {
+        font-size: 2em;
+        margin: 10px 1px 0;
+      }
+      body {
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <input class="numberInput" type="number" step="10"/>
+    <input class="numberInput" type="range" step="10"/>
+    <br>
+    <input class="test" type="text" size="10" spellcheck/>
+    <p></p>
+
+    <script>
+      const input = document.querySelector(".numberInput");
+      const para = document.querySelector("p");
+
+
+      function squared(num) {
+        return num * num;
+      }
+
+      function cubed(num) {
+        return num * num * num;
+      }
+
+      function factorial(num) {
+        if (num < 0) return undefined;
+        if (num === 0) return 1;
+        let x = num - 1;
+        while (x > 1) {
+          num *= x;
+          x--;
+        }
+        return num;
+      }
+
+
+
+      const collection = [];
+
+      input.addEventListener("change", () => {
+        const num = parseFloat(input.value);
+        
+        const results = {
+        squaredNum : squared(num),
+        cubedNum : cubed(num),
+        factorialNum : factorial(num)
+        };
+        console.log(num);
+        if (isNaN(num)) {
+          para.textContent = "You need to enter a number!";
+        } else {
+          para.textContent = `${num} squared is ${results.squaredNum}. `;
+          para.textContent += `${num} cubed is ${results.cubedNum}. `;
+          para.textContent += `${num} factorial is ${results.factorialNum}. `;
+          collection.push(results);
+
+          console.log(`Calculations:`);
+          console.table(results);
+
+          console.log(`Collection:`);
+          console.table(collection);
+        }
+      });
+    </script>
+  </body>
+</html>
