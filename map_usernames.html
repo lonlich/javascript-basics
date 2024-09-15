@@ -7,7 +7,6 @@
       p {
         margin: 0.5em 0;
       }
-
       * {
         box-sizing: border-box;
       }
@@ -18,11 +17,23 @@
     </style>
     <link rel="stylesheet" href="../styles.css" />
   </head>
-
   <body>
     <section class="preview"></section>
   </body>
   <script>
-    
+
+const users = [
+    {id : 1, name : 'Jane'},
+    {id : 2, name : 'Victor'},
+    {id : 3, name : 'Alex'}
+]
+
+console.log(users);
+
+const usernames = users.map(item => item.name);
+
+console.log(usernames);
+
+
   </script>
 </html>
