@@ -5,12 +5,16 @@
     <title>Functions: Task 1</title>
     <style>
       p {
-        color: purple;
+
         margin: 0.5em 0;
       }
 
       * {
         box-sizing: border-box;
+      }
+      body {
+        background-color: black;
+        color: white;
       }
     </style>
     <link rel="stylesheet" href="../styles.css" />
@@ -32,11 +36,16 @@
     ];
     const para = document.createElement("p");
 
-    function getRandomIndex(length) {
-      return Math.floor(Math.random() * length);
+    function getRandomIndex(min, max) {
+      let random = (Math.floor(Math.random() * ((max + 1) - min)) + min);
+      console.log(random);
+      return random;
     }
 
-    para.textContent = names[getRandomIndex(names.length)];
+    function chooseName(arr) {
+      return arr[getRandomIndex(1, 3)];
+    }
+    para.textContent = chooseName(names);
 
     // Don't edit the code below here!
 
