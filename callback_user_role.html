@@ -1,0 +1,72 @@
+<!-- input submission through form
+performing action based on selected role -->
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Functions: Task 1</title>
+    <style>
+      p {
+        margin: 0.5em 0;
+      }
+
+      * {
+        box-sizing: border-box;
+        /* border: 1px solid red; */
+      }
+
+      body {
+        background-color: black;
+        color: white;
+      }
+
+      form {
+        width: 500px;
+      }
+    </style>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+
+  <body>
+    <form action="/submit" method="post">
+      <fieldset>
+        <legend>Select your role:</legend>
+        <div class="radio-group">
+          <input type="radio" name="role" value="admin" id="admin" />
+          <label for="admin">Admin</label>
+        </div>
+        <div class="radio-group">
+          <input type="radio" name="role" value="user" id="user" />
+          <label for="user">User</label>
+        </div>
+        <input onclick="onclick" type="button" name="button" value="click me" class="submitRole" />
+      </fieldset>
+    </form>
+  </body>
+  <script>
+    //1. есть форма с кнопкой submit
+    //2. при нажатии на нее могут выполняться разные действия => нужен общий обработчик нажатия, в который затем подставляется нужная функция в зависимости от роли пользователя
+    //3. роль выбирается из радио баттонов
+    //4. функция при клике на submit должна выводить сообщение, которое зависит от роли
+
+    //const role = document.querySelector('#role.value');
+    //console.log(role);
+    const submitRole = document.querySelector('#submitRole');
+    submitRole.addEventListener('click', (e) => {
+      const role = document.querySelector('#role.value');
+      console.log(role);
+    });
+
+    function onClick(e) {
+      
+    }
+
+    //const showMessage =  
+
+
+
+
+
+  </script>
+</html>
