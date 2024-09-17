@@ -45,27 +45,26 @@ performing action based on selected role -->
     </form>
   </body>
   <script>
-    //1. есть форма с кнопкой submit
-    //2. при нажатии на нее могут выполняться разные действия => нужен общий обработчик нажатия, в который затем подставляется нужная функция в зависимости от роли пользователя
-    //3. роль выбирается из радио баттонов
-    //4. функция при клике на submit должна выводить сообщение, которое зависит от роли
 
-    //const role = document.querySelector('#role.value');
-    //console.log(role);
-    const submitRole = document.getElementById('submitRole');
-    
-    submitRole.addEventListener('click', function(greetMessage) {
-      const selectedRole = document.querySelector('input[name="role"]:checked');
-      greetMessage();
-    });
+    const handleClick = (selectedRole, actionCallback) => actionCallback(selectedRole);
 
-    const greetMessage = function(selectedRole) {
-      console.log(`Hello, ${selectedRole.value}`);
+    const greetMessage = selectedRole => console.log(`Hello, ${selectedRole}`);
+
+    const handleRoleSelection = (selectedRoleElement) => {
+    if (selectedRoleElement) {
+        const selectedRole = selectedRoleElement.value;
+        handleClick(selectedRole, greetMessage);
+      } else {
+        console.log(`No role selected.`);
+      }
     };
 
-
-
-
+    const submitRole = document.getElementById('submitRole');
+    
+    submitRole.addEventListener('click', () => {
+      const selectedRoleElement = document.querySelector('input[name="role"]:checked');
+      handleRoleSelection(selectedRoleElement);
+    });
 
   </script>
 </html>
