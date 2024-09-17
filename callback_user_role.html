@@ -40,7 +40,7 @@ performing action based on selected role -->
           <input type="radio" name="role" value="user" id="user" />
           <label for="user">User</label>
         </div>
-        <input onclick="onclick" type="button" name="button" value="click me" class="submitRole" />
+        <input onclick="onclick" type="button" name="button" value="click me" id="submitRole" />
       </fieldset>
     </form>
   </body>
@@ -52,17 +52,16 @@ performing action based on selected role -->
 
     //const role = document.querySelector('#role.value');
     //console.log(role);
-    const submitRole = document.querySelector('#submitRole');
-    submitRole.addEventListener('click', (e) => {
-      const role = document.querySelector('#role.value');
-      console.log(role);
+    const submitRole = document.getElementById('submitRole');
+    
+    submitRole.addEventListener('click', function(greetMessage) {
+      const selectedRole = document.querySelector('input[name="role"]:checked');
+      greetMessage();
     });
 
-    function onClick(e) {
-      
-    }
-
-    //const showMessage =  
+    const greetMessage = function(selectedRole) {
+      console.log(`Hello, ${selectedRole.value}`);
+    };
 
 
 
