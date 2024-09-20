@@ -40,20 +40,26 @@ performing action based on selected role -->
           <input type="radio" name="role" value="user" id="user" />
           <label for="user">User</label>
         </div>
-        <input onclick="onclick" type="button" name="button" value="click me" id="submitRole" />
+        <input type="button" name="button" value="click me" id="submitRole" />
       </fieldset>
     </form>
   </body>
   <script>
 
-    const handleClick = (selectedRole, actionCallback) => actionCallback(selectedRole);
+    const button = document.getElementById('submitRole');
+    console.log(button);
+
+    const handleClick = (selectedRole, ...actionCallbacks) => actionCallbacks.forEach(callback => callback(selectedRole));
 
     const greetMessage = selectedRole => console.log(`Hello, ${selectedRole}`);
+
+    const setButtonColor = selectedRole => 
+    button.style.backgroundColor = selectedRole === 'admin' ? 'blue' : 'red';
 
     const handleRoleSelection = (selectedRoleElement) => {
     if (selectedRoleElement) {
         const selectedRole = selectedRoleElement.value;
-        handleClick(selectedRole, greetMessage);
+        handleClick(selectedRole, greetMessage, setButtonColor);
       } else {
         console.log(`No role selected.`);
       }
@@ -65,6 +71,15 @@ performing action based on selected role -->
       const selectedRoleElement = document.querySelector('input[name="role"]:checked');
       handleRoleSelection(selectedRoleElement);
     });
+
+    // function showParams(...params) {
+    //   params.forEach((element, index, array) => {
+    //     console.log(`Parameter № ${index + 1}: ${element}`);
+    //     console.log(array);
+    //   });
+    // }
+
+    //showParams('admin', 'user');
 
   </script>
 </html>
