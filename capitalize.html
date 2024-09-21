@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Capitalize</title>
+    <style>
+      p {
+        margin: 0.5em 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-color: black;
+        color: white;
+      }
+    </style>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <input type="text" value="" />
+    <button>Get string</button>
+    <p>Waiting for a string to capitalize...</p>
+  </body>
+  <script>
+    const btn = document.querySelector("button");
+    const p = document.querySelector("p");
+
+    const getString = () => {
+      const string = document.querySelector("input").value;
+        return string;
+    };
+
+    function capitalize(string) {
+    if (string) {
+      const firstChar = string.slice(0, 1).toUpperCase();
+      const rest = string.slice(1).toLowerCase();
+      const result = firstChar.concat(rest);
+      return result;
+    } else {
+        return 'No string entered';
+      }
+    };
+
+    btn.addEventListener("click", function () {
+      p.textContent = capitalize(getString());
+    });
+  </script>
+</html>
