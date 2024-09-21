@@ -27,23 +27,24 @@
     const p = document.querySelector("p");
 
     const getString = () => {
-      const string = document.querySelector("input").value;
-        return string;
+      const string = document.querySelector("input").value.trim();
+      return string;
     };
 
-    function capitalize(string) {
-    if (string) {
-      const firstChar = string.slice(0, 1).toUpperCase();
-      const rest = string.slice(1).toLowerCase();
+    function capitalize(input) {
+      if (!input) {
+        return "No string entered";
+      }
+
+      const firstChar = input.charAt(0).toUpperCase();
+      const rest = input.slice(1).toLowerCase();
       const result = firstChar.concat(rest);
       return result;
-    } else {
-        return 'No string entered';
-      }
-    };
+    }
 
     btn.addEventListener("click", function () {
-      p.textContent = capitalize(getString());
+      const input = getString();
+      p.textContent = capitalize(input);
     });
   </script>
 </html>
