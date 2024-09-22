@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rock Paper Scissors</title>
+    <style>
+      p {
+        margin: 0.5em 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-color: black;
+        color: white;
+      }
+    </style>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    
+  </body>
+  <script>
+    //функция для компьютера
+    //функция для ввода человеком
+    //for loop для пяти раундов. В каждом раунде вызываются две функции и сравниваются. В зависимости от результата увеличивается соответствующий счетчик (или остается неизменным)
+    
+    function getComputerChoice() {
+        const random = Math.random();
+        if (random <= 0.33) {
+            return 'rock';
+        } else if (random > 0.33 && random <= 0.66) {
+            return 'paper';
+        } else {
+            return 'scissors';
+        }
+    }
+
+    function getHumanChoice() {
+        const humanChoice = prompt(`Enter your choice`).trim().toLowerCase();
+        return humanChoice;
+    }
+
+    function versus(computerChoice, humanChoice) {
+        console.log(`Computer choice: ${computerChoice}, Human choice: ${humanChoice}`);
+        let humanScore = 0;
+        let computerScore = 0;
+
+        function showScore() {
+            console.log(`Human score: ${humanScore}`);
+            console.log(`Computer score: ${computerScore}`);
+        }
+
+        if (computerChoice === humanChoice) {
+            showScore();
+            return;
+        } else if 
+        ((computerChoice === 'rock' && humanChoice === 'scissors') ||
+        (computerChoice === 'scissors' && humanChoice === 'paper') ||
+        (computerChoice === 'paper' && humanChoice === 'rock')) {
+            computerScore += computerScore;
+            showScore();
+            return computerScore;
+        } else {
+            humanScore += humanScore;
+            showScore();
+            return humanScore;
+        }
+    }
+
+    for (let index = 0; index < 6; index++) {
+        versus(getComputerChoice(), getHumanChoice());
+    }
+  </script>
+</html>
