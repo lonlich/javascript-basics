@@ -17,59 +17,71 @@
     </style>
     <link rel="stylesheet" href="../styles.css" />
   </head>
-  <body>
-    
-  </body>
+  <body></body>
   <script>
-    //функция для компьютера
-    //функция для ввода человеком
-    //for loop для пяти раундов. В каждом раунде вызываются две функции и сравниваются. В зависимости от результата увеличивается соответствующий счетчик (или остается неизменным)
-    
+
+    function playGame() {
     function getComputerChoice() {
-        const random = Math.random();
-        if (random <= 0.33) {
-            return 'rock';
-        } else if (random > 0.33 && random <= 0.66) {
-            return 'paper';
-        } else {
-            return 'scissors';
-        }
+      const random = Math.random();
+      if (random <= 0.33) {
+        return "rock";
+      } else if (random > 0.33 && random <= 0.66) {
+        return "paper";
+      } else {
+        return "scissors";
+      }
     }
 
     function getHumanChoice() {
-        const humanChoice = prompt(`Enter your choice`).trim().toLowerCase();
-        return humanChoice;
+      const humanChoice = prompt(`Enter your choice`).trim().toLowerCase();
+      return humanChoice;
     }
 
-    function versus(computerChoice, humanChoice) {
-        console.log(`Computer choice: ${computerChoice}, Human choice: ${humanChoice}`);
-        let humanScore = 0;
-        let computerScore = 0;
+    const versus = function (computerChoice, humanChoice) {
+      console.log(
+        `Computer choice: ${computerChoice}, Human choice: ${humanChoice}`
+      );
 
-        function showScore() {
-            console.log(`Human score: ${humanScore}`);
-            console.log(`Computer score: ${computerScore}`);
-        }
+      // let humanWon = false;
+      // let computerWon = false;
 
-        if (computerChoice === humanChoice) {
-            showScore();
-            return;
-        } else if 
-        ((computerChoice === 'rock' && humanChoice === 'scissors') ||
-        (computerChoice === 'scissors' && humanChoice === 'paper') ||
-        (computerChoice === 'paper' && humanChoice === 'rock')) {
-            computerScore += computerScore;
-            showScore();
-            return computerScore;
-        } else {
-            humanScore += humanScore;
-            showScore();
-            return humanScore;
-        }
+      if (computerChoice === humanChoice) {
+        return "draw";
+      } else if (
+        (computerChoice === "rock" && humanChoice === "scissors") ||
+        (computerChoice === "scissors" && humanChoice === "paper") ||
+        (computerChoice === "paper" && humanChoice === "rock")
+      ) {
+        return "Computer won!";
+      } else {
+        return "Human won!";
+      }
+    };
+
+    let humanScore = 0;
+    let computerScore = 0;
+
+    function showScore() {
+      console.log(`Human score: ${humanScore}`);
+      console.log(`Computer score: ${computerScore}`);
     }
 
-    for (let index = 0; index < 6; index++) {
-        versus(getComputerChoice(), getHumanChoice());
+    for (let index = 0; index < 5; index++) {
+      console.log(`Round ${index + 1}`);
+      const roundResult = versus(getComputerChoice(), getHumanChoice());
+      console.log(roundResult);
+      if (roundResult === "draw") {
+        console.log(`It's a draw!`);
+      } else if (roundResult === "Computer won!") {
+        computerScore++;
+      } else if (roundResult === "Human won!") {
+        humanScore++;
+      }
+      showScore();
     }
+
+    console.log(`Final score: Human/Computer: ${humanScore}/${computerScore}`);
+  }
+    playGame();
   </script>
 </html>
