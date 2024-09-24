@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rock Paper Scissors</title>
+    <style>
+      p {
+        margin: 0.5em 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-color: black;
+        color: white;
+      }
+    </style>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <button id="rock" value="rock">Rock</button>
+    <button id="paper" value="paper">Paper</button>
+    <button id="scissors" value="scissors">Scissors</button>
+  </body>
+  <script>
+
+    const rockBtn = document.getElementById("rock");
+    const paperBtn = document.getElementById("paper");
+    const scissorsBtn = document.getElementById("scissors");
+    const choices = ["rock", "paper", "scissors"];
+    const rounds = +prompt(`Enter number of rounds`);
+
+    function getRandomIndex(min, max) {
+      const randomIndex = Math.floor(Math.random() * (max + 1 - min)) + min;
+      return randomIndex;
+    }
+
+    const getButtonValue = (e) => e.target.value;
+
+    async function playGame() {
+
+      function getComputerChoice() {
+        const computerChoice = choices[getRandomIndex(0, (choices.length - 1))];
+        return computerChoice;
+      }
+
+      // Function to get the user's choice from button clicks
+      function getHumanChoice() {
+        return new Promise((resolve) => {
+          rockBtn.addEventListener("click", (e) => resolve(getButtonValue(e)));
+          paperBtn.addEventListener("click", (e) => resolve(getButtonValue(e)));
+          scissorsBtn.addEventListener("click", (e) =>
+            resolve(getButtonValue(e))
+          );
+        });
+      }
+
+      const playRound = function (computerChoice, humanChoice) {
+        console.log(
+          `Computer choice: ${computerChoice}, Human choice: ${humanChoice}`
+        );
+
+        if (computerChoice === humanChoice) {
+          return "draw";
+        } else if (
+          (computerChoice === "rock" && humanChoice === "scissors") ||
+          (computerChoice === "scissors" && humanChoice === "paper") ||
+          (computerChoice === "paper" && humanChoice === "rock")
+        ) {
+          return "Computer won!";
+        } else {
+          return "Human won!";
+        }
+      };
+
+      let humanScore = 0;
+      let computerScore = 0;
+
+      function showScore() {
+        console.log(`Human score: ${humanScore}`);
+        console.log(`Computer score: ${computerScore}`);
+      }
+
+      for (let index = 0; index < rounds; index++) {
+        console.log(`Round ${index + 1}`);
+        console.log(`Make your choice...`);
+        const humanChoice = await getHumanChoice();
+        const roundResult = playRound(getComputerChoice(), humanChoice);
+
+        console.log(roundResult);
+
+        if (roundResult === "draw") {
+          console.log(`It's a draw!`);
+        } else if (roundResult === "Computer won!") {
+          computerScore++;
+        } else if (roundResult === "Human won!") {
+          humanScore++;
+        }
+        showScore();
+      }
+
+      console.log(
+        `Final score: Human/Computer: ${humanScore}/${computerScore}`
+      );
+    }
+
+    playGame();
+  </script>
+</html>
