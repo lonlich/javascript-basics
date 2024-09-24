@@ -18,18 +18,13 @@
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
+    <button id="start">Start Game</button>
     <button id="rock" value="rock">Rock</button>
     <button id="paper" value="paper">Paper</button>
     <button id="scissors" value="scissors">Scissors</button>
   </body>
+
   <script>
-
-    const rockBtn = document.getElementById("rock");
-    const paperBtn = document.getElementById("paper");
-    const scissorsBtn = document.getElementById("scissors");
-    const choices = ["rock", "paper", "scissors"];
-    const rounds = +prompt(`Enter number of rounds`);
-
     function getRandomIndex(min, max) {
       const randomIndex = Math.floor(Math.random() * (max + 1 - min)) + min;
       return randomIndex;
@@ -38,9 +33,14 @@
     const getButtonValue = (e) => e.target.value;
 
     async function playGame() {
+      const rockBtn = document.getElementById("rock");
+      const paperBtn = document.getElementById("paper");
+      const scissorsBtn = document.getElementById("scissors");
+      const choices = ["rock", "paper", "scissors"];
+      const rounds = +prompt(`Enter number of rounds`);
 
       function getComputerChoice() {
-        const computerChoice = choices[getRandomIndex(0, (choices.length - 1))];
+        const computerChoice = choices[getRandomIndex(0, choices.length - 1)];
         return computerChoice;
       }
 
@@ -104,6 +104,7 @@
       );
     }
 
-    playGame();
+    const startBtn = document.getElementById('start');
+    startBtn.addEventListener('click', playGame);
   </script>
 </html>
