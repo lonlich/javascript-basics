@@ -25,26 +25,42 @@
   </body>
 
   <script>
+    //UTILITY FUNCTIONS
+
+    //get random array index between two boundaries
     function getRandomIndex(min, max) {
       const randomIndex = Math.floor(Math.random() * (max + 1 - min)) + min;
       return randomIndex;
     }
 
+    //get the value of a clicked button
     const getButtonValue = (e) => e.target.value;
 
-    async function playGame() {
+    //MAIN GAME LOGIC
+    //with async functionality waiting for the button click with the user choice
+    async function playGame(rounds = 3) {
+      //number of rounds input validation
+      if (typeof rounds !== "number") {
+        throw new Error(
+          "Invalid parameter: rounds must be a number. Example usage: playGame(3)"
+        );
+      }
+      //vars init
       const rockBtn = document.getElementById("rock");
       const paperBtn = document.getElementById("paper");
       const scissorsBtn = document.getElementById("scissors");
       const choices = ["rock", "paper", "scissors"];
-      const rounds = +prompt(`Enter number of rounds`);
+      //const rounds = +prompt(`Enter number of rounds`); //optional functionality to receive # of rounds as user input
 
+      console.log(`Starting the game with ${rounds} rounds.`);
+
+      //get random computer choice
       function getComputerChoice() {
         const computerChoice = choices[getRandomIndex(0, choices.length - 1)];
         return computerChoice;
       }
 
-      // Function to get the user's choice from button clicks
+      //get the user's choice from button clicks
       function getHumanChoice() {
         return new Promise((resolve) => {
           rockBtn.addEventListener("click", (e) => resolve(getButtonValue(e)));
@@ -55,6 +71,7 @@
         });
       }
 
+      //one round logic
       const playRound = function (computerChoice, humanChoice) {
         console.log(
           `Computer choice: ${computerChoice}, Human choice: ${humanChoice}`
@@ -76,11 +93,13 @@
       let humanScore = 0;
       let computerScore = 0;
 
+      //function to show current score after each round
       function showScore() {
         console.log(`Human score: ${humanScore}`);
         console.log(`Computer score: ${computerScore}`);
       }
 
+      //main loop with # of iterations = # of rounds. It controls the score counters of players and shows the current score after each round
       for (let index = 0; index < rounds; index++) {
         console.log(`Round ${index + 1}`);
         console.log(`Make your choice...`);
@@ -99,12 +118,21 @@
         showScore();
       }
 
+      //showing the final score when the game ends
       console.log(
         `Final score: Human/Computer: ${humanScore}/${computerScore}`
       );
     }
 
-    const startBtn = document.getElementById('start');
-    startBtn.addEventListener('click', playGame);
+    //start game button functionality
+    const startBtn = document.getElementById("start");
+    startBtn.addEventListener("click", () => playGame(5));
+
+    //1. Добавить игру бота с ботом, человек с человеком
+    //2. переделать в объекты (результат раунда). Переделать компа и человека в player 1 и player 2.
+    //3. добавить возможность большего колва игроков (массив игроков)
+    //4. вынести в параметры кнопки (переделать в классы)
+    //5. сделать функцию для создания кнопок для разных типов игроков и игры
+    //6. добавить вариации в конфиг с выбором игры (колодец итд)
   </script>
 </html>
