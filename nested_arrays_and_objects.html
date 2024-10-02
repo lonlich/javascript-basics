@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>JavaScript Arrays</h1>
+    <h2>Nested JavaScript Objects and Arrays.</h2>
+
+    <p id="demo"></p>
+
+    <script>
+      //   let x = "";
+      //   const myObj = {
+      //     name: "John",
+      //     age: 30,
+      //     cars: [
+      //       { name: "Ford", models: ["Fiesta", "Focus", "Mustang"] },
+      //       { name: "BMW", models: ["320", "X3", "X5"] },
+      //       { name: "Fiat", models: ["500", "Panda"] },
+      //     ],
+      //   };
+
+      //   for (let i in myObj.cars) {
+      //     x += "<h2>" + myObj.cars[i].name + "</h2>";
+      //     for (let j in myObj.cars[i].models) {
+      //       x += myObj.cars[i].models[j] + "<br>";
+      //     }
+      //   }
+
+      //   document.getElementById("demo").innerHTML = x;
+
+      const club = {
+        name: "Real Madrid",
+        age: 135,
+        squad: 
+          {
+            defenders: [
+              { name : "Carvajal", age: 33 },
+              { name : "Rudiger", age: 31 },
+              { name : "Militao", age: 25 },
+              { name : "Mendy", age: 28 },
+            ],
+
+            midfielders: [
+              { name : "Tchuameni", age: 25 },
+              { name : "Camavinga", age: 22 },
+              { name : "Modric", age : 39 },
+              { name : "Valverde", age : 25 },
+            ]
+          }
+      };
+
+      let listHTML = "";
+
+      
+      const positions = Object.keys(club.squad);
+      positions.forEach(position => {
+        console.log(position);
+        console.log(club.squad.position);
+
+        //club.squad.position.forEach( player => {
+        //console.log(player.name, player.age);
+    //});
+    });
+    
+
+    </script>
+  </body>
+</html>
