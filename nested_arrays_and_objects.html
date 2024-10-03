@@ -54,7 +54,10 @@
       const positions = Object.keys(club.squad);
       positions.forEach(position => {
         console.log(position);
-        console.log(club.squad.position);
+        
+        club.squad[position].forEach(player => {
+            console.log(`Name: ${player.name}, Age: ${player.age}`);
+        });
 
         //club.squad.position.forEach( player => {
         //console.log(player.name, player.age);
