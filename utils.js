@@ -1,5 +1,4 @@
-//Capitalize first char of string
-
+//capitalize the first char of a string
 function capitalizeFirstChar(input) {
   if (!input) {
     return "No string entered";
@@ -11,4 +10,16 @@ function capitalizeFirstChar(input) {
   return result;
 }
 
-export { capitalizeFirstChar };
+//get the value of a clicked button
+const getButtonValue = (e) => e.target.value;
+
+//get random number from 0 to maxNumber - 1
+function random(maxNumber) {
+  return Math.floor(Math.random() * maxNumber);
+}
+
+export {
+        capitalizeFirstChar, 
+        getButtonValue, 
+        random 
+      };
