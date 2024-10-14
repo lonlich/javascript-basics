@@ -18,8 +18,35 @@ function random(maxNumber) {
   return Math.floor(Math.random() * maxNumber);
 }
 
+//check two arrays for equality
+function checkArrEquality(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+//check if a character an alphabet letter (true/false)
+function isAlphabetLetter(char) {
+  return /^[a-zA-Z]$/.test(char);
+}
+
 export {
         capitalizeFirstChar, 
         getButtonValue, 
-        random 
+        random,
+        checkArrEquality
       };
+
+
+
+//Полезные команды
+
+//Запустить тест - npm test helloWorld.spec.js
