@@ -76,8 +76,55 @@ const link = document.querySelector('a');
 //     e.preventDefault();
 // });
 
-addEventListener('beforeunload', (e) => {
-    e.preventDefault();
-    e.returnValue = '';
-    alert('Are you sure');
+// addEventListener('beforeunload', (e) => {
+//     e.preventDefault();
+//     e.returnValue = '';
+//     alert('Are you sure');
+// });
+
+//custom highlight event
+const highlightBtn = document.querySelector('#highlight');
+const highlightedElem = document.querySelector('.note');
+// 1. добавляем ивент листенер на кнопку баттон, которая запускает функцию хайлайта:
+//     - принимает элемент для подсветки
+
+// 2. функция добавления хайлайта:
+//     - добавляет хайлайт к элементу
+//     - отправляет ивент хайлайтед
+function highlight(elem) {
+    const bgColor = 'blue';
+    elem.style.backgroundColor = bgColor;
+
+    const highlighted = new CustomEvent('highlight', {
+        detail: {
+            backgroundColor: bgColor
+        }
+    });
+
+    elem.dispatchEvent(highlighted);
+}
+// 3. функция адд бордер:
+//     - принимает элемент к которому добавляется бордер
+
+function addBorder(elem) {
+    elem.style.border = '1px solid red';
+}
+
+function removeBorder(elem) {
+    elem.style.border = '0px';
+}
+// 4. добавляем ивент листенер на элемент: 
+// - слушает ивент хайлайтед
+// - когда ивент получен, исполняет колбек функцию:
+//         - добавляет бордер, вызывая функцию адд бордер
+
+highlightedElem.addEventListener('highlight', (e) => {
+    
+    setTimeout(() => {
+        addBorder(e.target);
+        setTimeout(() => removeBorder(e.target), 1000);
+    }, 1000);
+    console.log(e.detail);
 });
+
+highlightBtn.addEventListener('click', () => highlight(highlightedElem));
