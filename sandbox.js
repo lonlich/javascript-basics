@@ -69,3 +69,15 @@ const logTarget = (e) => {
 buttons.forEach(button => {
     button.addEventListener('click', logTarget);
 });
+
+const link = document.querySelector('a');
+
+// link.addEventListener('click', (e) => {
+//     e.preventDefault();
+// });
+
+addEventListener('beforeunload', (e) => {
+    e.preventDefault();
+    e.returnValue = '';
+    alert('Are you sure');
+});

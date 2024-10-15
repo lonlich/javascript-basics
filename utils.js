@@ -29,7 +29,7 @@ function checkArrEquality(arr1, arr2) {
       return false;
     }
   }
-  
+
   return true;
 }
 
@@ -38,14 +38,15 @@ function isAlphabetLetter(char) {
   return /^[a-zA-Z]$/.test(char);
 }
 
-export {
-        capitalizeFirstChar, 
-        getButtonValue, 
-        random,
-        checkArrEquality
-      };
+//create Delete button
+function createDeleteButton(textContent, className = "delete-btn") {
+  const deleteBtn = document.createElement("button");
+  deleteBtn.className = className;
+  deleteBtn.textContent = textContent;
+  return deleteBtn;
+}
 
-
+export { capitalizeFirstChar, getButtonValue, random, checkArrEquality, createDeleteButton };
 
 //Полезные команды
 
