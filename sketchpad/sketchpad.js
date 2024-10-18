@@ -1,6 +1,8 @@
 const container = document.querySelector("#container");
 const containerWidth = 960;
 containerHeight = 960;
+const containerBgColor = getComputedStyle(container).getPropertyValue('--container-bg-color');
+console.log(containerBgColor);
 
 function setupContainer(containerWidth, containerHeight) {
   container.style.width = containerWidth + "px";
@@ -16,31 +18,44 @@ function fillContainer(divsPerRow) {
   const divWidth = containerWidth / divsPerRow;
 
   for (let i = 0; i < totalDivs; i++) {
-    const div = document.createElement("div");
-    div.style.width = divWidth + "px";
-    //div.style.height = divWidth + 'px'; //making a square div
-    container.appendChild(div);
+    setTimeout(() => {
+      const div = document.createElement("div");
+      div.style.width = divWidth + "px";
+      div.className = 'pixel';
+      //div.style.height = divWidth + 'px'; //making a square div
+      
+      //vizualize filling of the container
+      container.appendChild(div);
+    }, i * 0.1);
   }
 }
 
-fillContainer(16);
+function resetContainer() {
+  container.innerHTML = '';
+}
+
+function clearDivs() {
+  const divs = document.querySelectorAll('.pixel');
+  console.log(divs);
+  divs.forEach(div => {
+    div.style.backgroundColor = containerBgColor;
+  }); 
+}
 
 let mousedown = false;
 
 container.addEventListener('mousedown', (e) => {
     mousedown = true;
-    e.target.style.backgroundColor = 'red'; // Change color of the initial div
+    e.target.style.backgroundColor = 'red'; //change color of the 1st div
 
     console.log(mousedown);
 });
 
-// Attach mousemove event listener outside of mousedown
 container.addEventListener('mousemove', (e) => {
     if (mousedown) {
-        if (e.target !== container) { // Ensure we're only changing color of child divs
             e.target.style.backgroundColor = 'red';
             console.log(mousedown);
-        }
+        
     }
 });
 
@@ -48,11 +63,26 @@ container.addEventListener('mousemove', (e) => {
 document.addEventListener('mouseup', (e) => {
     mousedown = false;
     console.log(mousedown);
-
-    // Reset color of all child divs when mouse is released
-    const childDivs = container.querySelectorAll('div'); // Adjust selector based on your child elements
-    childDivs.forEach(div => {
-        div.style.backgroundColor = ''; // Reset color
-    });
 });
 
+const start = document.querySelector('#start');
+let divsPerRow = null;
+
+start.addEventListener('click', () => {
+  divsPerRow = document.querySelector('#divs-per-row').value;
+  console.log(divsPerRow);  
+  if (!divsPerRow) {
+    alert('Enter number of "pixels');
+    return;
+  }
+ 
+  fillContainer(divsPerRow);
+});
+
+reset.addEventListener('click', () => {
+  resetContainer();
+});
+
+clear.addEventListener('click', () => {
+  clearDivs();
+});
