@@ -1,7 +1,14 @@
+//utils
+
+function random(maxNumber) {
+  return Math.floor(Math.random() * maxNumber);
+}
+
+//main code
 const container = document.querySelector("#container");
 const containerWidth = 960;
 containerHeight = 960;
-const containerBgColor = getComputedStyle(container).getPropertyValue('--container-bg-color');
+const containerBgColor = window.getComputedStyle(container).backgroundColor;
 console.log(containerBgColor);
 
 function setupContainer(containerWidth, containerHeight) {
@@ -42,20 +49,27 @@ function clearDivs() {
   }); 
 }
 
+function getRandomBgColor() {
+  const r = random(255);
+  const g = random(255);
+  const b = random(255);
+  return `rgb(${r},${g},${b})`;
+}
+
 let mousedown = false;
 
 container.addEventListener('mousedown', (e) => {
     mousedown = true;
-    e.target.style.backgroundColor = 'red'; //change color of the 1st div
-
-    console.log(mousedown);
+    e.target.style.backgroundColor = getRandomBgColor();
+    //e.target.style.backgroundColor = 'red'; //change color of the 1st div
+    //console.log(mousedown);
 });
 
-container.addEventListener('mousemove', (e) => {
+container.addEventListener('mouseover', (e) => {
     if (mousedown) {
-            e.target.style.backgroundColor = 'red';
-            console.log(mousedown);
-        
+      e.target.style.backgroundColor = getRandomBgColor();
+      //e.target.style.backgroundColor = 'red';
+      //console.log(mousedown);  
     }
 });
 
