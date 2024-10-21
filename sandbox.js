@@ -128,3 +128,37 @@ highlightedElem.addEventListener('highlight', (e) => {
 });
 
 highlightBtn.addEventListener('click', () => highlight(highlightedElem));
+
+function sum(obj) {
+    let sum = 0;
+    for (prop in obj) {
+        sum += obj.prop;
+    }
+    return sum;
+}
+
+let salaries = {
+    John: 100,
+    Ann: 160,
+    Pete: 130
+  }
+
+console.log(sum(salaries));
+
+function multiply(obj) {
+    for (prop in obj) {
+        console.log(typeof(obj[prop]));
+        if (typeof obj[prop] === "number") {
+            console.log(typeof(obj[prop]));
+            obj[prop] = obj[prop] * 2;
+        }
+    }
+}
+
+let menu = {
+    width: 200,
+    height: 300,
+    title: "My menu"
+  };
+
+multiply(menu);
