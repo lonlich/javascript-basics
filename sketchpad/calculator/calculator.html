@@ -13,18 +13,32 @@
       body {
         background-color: black;
         color: white;
+        display: flex;
+        justify-content: center;
       }
+
+      button {
+        padding: 20px;
+        margin: 5px;
+      }
+
+
     </style>
     <link rel="stylesheet" href="../styles.css" />
     <script src="calculator.js" defer></script>
   </head>
   <body>
+    <div id="container">
     <div id="numbers">
     <button id="1">1</button><button id="2">2</button><button id="3">3</button><button id="4">4</button>
   </div>
-    
-    <button id="add">+</button><button id="subtract">-</button><button id="multiply">x</button><button id="divide">/</button>
 
+    <div id="operations">
+    <button id="add">+</button><button id="subtract">-</button><button id="multiply">x</button><button id="divide">/</button>
+  </div>
+
+    <button id="equals">=</button>
+  </div>
 </body>
 </html>
   </body>
