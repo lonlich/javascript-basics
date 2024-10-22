@@ -24,14 +24,14 @@ function divide(num1, num2) {
 //     const value += e.target.value;
 // }
 
-let num1 = null;
-let num2 = null;
+let num = null;
 let result = null;
 let operation = null;
-let firstNumAssigned = false;
+let numAssigned = false;
+const nums = [];
+const operationsLog = [];
 
-function operate(input1, input2, operation) {
-    console.log(`num1 before switch: ${num1}`);
+function operate(operations) {
     
     let operationFunction;
 
@@ -52,48 +52,47 @@ function operate(input1, input2, operation) {
         operationFunction = divide;
         break;
     }
-    result = operationFunction(input1, input2);
-    console.log(`${input1} ${operation} ${input2} = ${result}`);
+    //result = operationFunction(input1, input2);
+
+    let message = '';
+    result = nums.reduce((currentRes, currentNum) => {
+        console.log(currentRes, currentNum);
+        return operationFunction(currentRes, currentNum, currentOperation);
+    });
+
     
     
-    firstNumAssigned = false;
+    
+    console.log(message);
+    
 }
 
 const numbers = document.querySelector('#numbers');
-let num1Input = '';
+let numInput = '';
 
 numbers.addEventListener('click', (e) => {
-    if (!firstNumAssigned) {
         
-        num1Input += e.target.textContent;
-        num1 = +num1Input;
+        numInput += e.target.textContent;
+        num = +numInput;
 
         //firstNumAssigned = true;
-        console.log(num1);
-    } else {
-        num2 = +e.target.textContent;
-        console.log(num2);
-    }
+        console.log(nums);
 });
 
 
 const operations = document.querySelector('#operations');
-operations.addEventListener('click', (e) => {
-    firstNumAssigned = true;    
+operations.addEventListener('click', (e) => { 
+    nums.push(num);
+    numInput = '';
     operation = e.target.textContent;
-
+    operationsLog.push(operation);
 });
 
 const equals = document.querySelector('#equals');
-
 equals.addEventListener('click', () => {
-    console.log(`num1 inside ev ${num1}`);
-    if (!firstNumAssigned) {
-        num1 = result;
-    }
-    operate(num1, num2, operation);
-    num1 = result;
-    num1Input = '';
+    nums.push(num);
+    numInput = '';
+    operate(operationsLog);
 });
 
 // operate(1, 2, '+');
