@@ -24,13 +24,16 @@ function divide(num1, num2) {
 //     const value += e.target.value;
 // }
 
-let num = null;
+
 let result = null;
 let operation = null;
 
-let calculations = {};
+let calculations = [];
+let currentCalc = null;
+let lastCalc = null;
+let operationOver = false;
 
-function operate(operations) {
+function operate(input1, input2, operation) {
     
     let operationFunction;
 
@@ -54,12 +57,11 @@ function operate(operations) {
     //result = operationFunction(input1, input2);
 
     let message = '';
-    result = nums.reduce((currentRes, currentNum) => {
-        console.log(currentRes, currentNum);
-        return operationFunction(currentRes, currentNum, currentOperation);
-    });
-  
-    console.log(message);
+    //calculations[calculations.length - 1].currentRes = input1;
+    currentCalc.result = operationFunction(input1, input2, operation);
+    console.log('array at operate end (inside)');
+    
+    console.table(calculations);
     
 }
 
@@ -68,26 +70,73 @@ let numInput = '';
 
 numbers.addEventListener('click', (e) => {        
         numInput += e.target.textContent;
-        console.log(nums);
+        
 });
 
 
 const operations = document.querySelector('#operations');
 operations.addEventListener('click', (e) => { 
+    console.log('array at operations start');
+    console.table(calculations);
+
+    operationOver = false;
+
+    if (numInput) {
+        calculations.push({
+            num1 : +numInput,
+            num2 : null,
+            operation : e.target.textContent 
+        });
+        numInput = '';
+        return;
+    }
+
     calculations.push({
-        num1 : +numInput,
+        num1 : null,
         num2 : null,
         operation : e.target.textContent 
-    })
+    });
+
+    lastCalc = calculations[calculations.length - 2];
+    currentCalc = calculations[calculations.length - 1];
+
+    if (!lastCalc) {
+        currentCalc.num1 = +numInput;
+        numInput = '';
+        return;
+    } 
+    currentCalc.num1 = lastCalc.result;
     numInput = '';
-    console.log(calculations);
+    console.log('array at operations end');
+    
+    console.table(calculations);
 });
 
 const equals = document.querySelector('#equals');
 equals.addEventListener('click', () => {
-    calculations[calculations.length - 1].num2 = +numInput;
+    if (operationOver) {
+
+        calculations.push({
+            num1 : currentCalc.result,
+            num2 : currentCalc.num2,
+            operation : currentCalc.operation
+        });
+
+        currentCalc = calculations[calculations.length - 1];
+        result = operate(currentCalc.num1, currentCalc.num2, currentCalc.operation);
+        return;
+    }
+    currentCalc = calculations[calculations.length - 1];
+    currentCalc.num2 = +numInput;
     numInput = '';
-    operate(operationsLog);
+
+    calculations.forEach(currentCalc => {
+        result = operate(currentCalc.num1, currentCalc.num2, currentCalc.operation);
+    
+        console.log('array at equals end');
+        console.table(calculations);
+    });
+    operationOver = true;
 });
 
 // operate(1, 2, '+');
