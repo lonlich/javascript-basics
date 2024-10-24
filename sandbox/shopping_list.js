@@ -1,4 +1,4 @@
-import * as Utils from './utils.js';
+import * as Utils from '../utils.js';
 
 const addBtn = document.querySelector('#add');
 const list = document.querySelector('ul');

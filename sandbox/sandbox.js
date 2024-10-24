@@ -43,11 +43,11 @@ console.log(p.innerText);
 const container = document.querySelector('#container');
 
 
-const blackBorderDiv = document.createElement('div');
-blackBorderDiv.style.backgroundColor = 'pink';
-blackBorderDiv.style.borderColor = 'black';
-blackBorderDiv.innerHTML = '<h1>I\m in a div</h1><p>ME TOO</p>';
-container.appendChild(blackBorderDiv);
+// const blackBorderDiv = document.createElement('div');
+// blackBorderDiv.style.backgroundColor = 'pink';
+// blackBorderDiv.style.borderColor = 'black';
+// blackBorderDiv.innerHTML = '<h1>I\m in a div</h1><p>ME TOO</p>';
+// container.appendChild(blackBorderDiv);
 
 const objectDiv = document.createElement('div');
 objectDiv.textContent = 'Object assigned styles';
@@ -162,3 +162,20 @@ let menu = {
   };
 
 multiply(menu);
+
+
+function Book(title, author, pages, read) {
+    
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+
+    this.info = function() {
+        return `${title} by ${author}, ${pages}, ${read}`;
+    };
+}
+
+const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet')
+
+console.log(theHobbit.info());
