@@ -53,7 +53,7 @@ const objectDiv = document.createElement('div');
 objectDiv.textContent = 'Object assigned styles';
 Object.assign(objectDiv.style, {
     borderColor: 'red',
-    backgroundColor: 'blue'
+    //backgroundColor: 'blue'
 });
 container.appendChild(objectDiv);
 
@@ -179,3 +179,11 @@ function Book(title, author, pages, read) {
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet')
 
 console.log(theHobbit.info());
+
+
+//Function factory (multiple buttons)
+
+//1. Passing an array of actions
+
+
+
