@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // const nodeList = document.querySelectorAll('div');
 // console.log(nodeList);
 // const arr = Array.from(nodeList);
@@ -67,7 +68,7 @@ const logTarget = (e) => {
 };
 
 buttons.forEach(button => {
-    button.addEventListener('click', logTarget);
+    //button.addEventListener('click', logTarget);
 });
 
 const link = document.querySelector('a');
@@ -181,9 +182,128 @@ const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet')
 console.log(theHobbit.info());
 
 
-//Function factory (multiple buttons)
+//Function factory
 
-//1. Passing an array of actions
+//Object creation and inheritance
 
 
 
+
+
+//РАЗОБРАТЬСЯ С CREATEEFFECT, REDBORDEREFFECT итд
+
+function createGame(game) {
+    
+    console.log(`Let the game of ${game} begin!`);
+    let team1score = 0;
+    let team2score = 0;
+
+    function addPointToTeam1() {
+        team1score++;
+        console.log(`Team 1 gets a point! Team 1 score is ${team1score}, Team 2 score is ${team2score}`);
+    }
+
+    function addPointToTeam2() {
+        team2score++;
+        console.log(`Team 2 gets a point! Team 1 score is ${team1score}, Team 2 score is ${team2score}`);
+    }
+
+    return {addPointToTeam1, addPointToTeam2};
+}
+
+const football = createGame('Football');
+football.addPointToTeam1();
+football.addPointToTeam1();
+football.addPointToTeam2();
+
+
+// 1. Создать аккаунт (createAccount):
+
+// Входные данные:
+// - username
+// - email
+
+// Методы:
+
+// - 1а) получить инфу об аккаунте (getAccountInfo)
+// - 1b) создать героя - может быть несколько (createHero)
+// - 1c) получить список героев (getHeroList)
+
+//     1a) getAccountInfo:
+//         - username
+//         - email
+//     1b) createHero:
+//     Входные данные
+//         - heroName
+//         - heroClass
+//         - hardcore?
+//     Методы:
+//         - 1bb) создать класс героя (createHeroClass)
+//         Входные данные:
+//         - className
+//         Vars:
+//         - lvl
+//         - health
+//         - attack
+//         Методы:
+
+
+
+const getInfo = document.querySelector('#getPlayerInfo');
+const setRussia = document.querySelector('#setCountryRussia');
+const setGermany = document.querySelector('#setCountryGermany');
+
+getInfo.addEventListener('click', () => {
+    console.log(mishgan.getPlayerInfo());    
+});
+
+setRussia.addEventListener('click', () => {
+    console.log(mishgan.setCountry('Russia'));    
+});
+
+setGermany.addEventListener('click', () => {
+    console.log(mishgan.setCountry('Germany'));    
+});
+
+const mishgan = createPlayer('Mishgan', 'orenkin@yandex.ru');
+console.log(mishgan.getPlayerInfo());
+// playerMishgan.changeUsername();
+// playerMishgan.changeEmail();
+// playerMishgan.setCountry();
+// playerMishgan.setAvatar();
+
+function createPlayer(username, email) {//обязательные параметры для аккаунта игрока. Должны быть заданы для создания аккаунта, но можно поменять потом
+    
+    //опциональные параметры, которые можно установить позже
+    
+    let country = 'not selected'; 
+    let avatar = 'not uploaded';
+    let heroes = ['not created'];
+
+    return {
+        getPlayerInfo : () => `Player ${username}'s Info: Email: ${email}, Country: ${country}, Avatar: ${avatar}, Heroes: ${heroes}`,
+        setCountry : (countryName) => {
+            country = countryName; 
+            return `Country set to ${country}`
+        },
+        uploadAvatar : () => {},
+        changeUsername : () => {},
+        changeEmail : () => {},
+        createHero : () => {},
+
+        //DANGER ZONE
+        resetAccount : () => {},
+        deleteAccount : () => {}
+        };
+};
+    
+
+
+
+//Обязательные параметры для создания героя: имя героя, хардкор?,
+//Необязательные параметры: класс, лига
+//
+//Обязательные параметры для создания класса: название класса
+//
+//
+//
