@@ -252,6 +252,8 @@ football.addPointToTeam2();
 const getInfo = document.querySelector('#getPlayerInfo');
 const setRussia = document.querySelector('#setCountryRussia');
 const setGermany = document.querySelector('#setCountryGermany');
+const changeUsername = document.querySelector('#changeUsername');
+
 
 getInfo.addEventListener('click', () => {
     console.log(mishgan.getPlayerInfo());    
@@ -265,9 +267,13 @@ setGermany.addEventListener('click', () => {
     console.log(mishgan.setCountry('Germany'));    
 });
 
+changeUsername.addEventListener('click', () => {
+    console.log(mishgan.changeUsername('Aqua'));    
+});
+
 const mishgan = createPlayer('Mishgan', 'orenkin@yandex.ru');
 console.log(mishgan.getPlayerInfo());
-// playerMishgan.changeUsername();
+console.log(mishgan.resetAccount());
 // playerMishgan.changeEmail();
 // playerMishgan.setCountry();
 // playerMishgan.setAvatar();
@@ -276,23 +282,37 @@ function createPlayer(username, email) {//обязательные параме�
     
     //опциональные параметры, которые можно установить позже
     
-    let country = 'not selected'; 
-    let avatar = 'not uploaded';
-    let heroes = ['not created'];
+    const defaultAccountInfo = {
+        country : 'not selected', 
+        avatar : 'not uploaded',
+        heroes : ['not created']
+    }
+
+    let accountInfo = defaultAccountInfo;
 
     return {
-        getPlayerInfo : () => `Player ${username}'s Info: Email: ${email}, Country: ${country}, Avatar: ${avatar}, Heroes: ${heroes}`,
+        getPlayerInfo : () => `Player ${username}'s Info: Email: ${email}, Country: ${accountInfo.country}, Avatar: ${accountInfo.avatar}, Heroes: ${accountInfo.heroes}`,
+        
         setCountry : (countryName) => {
-            country = countryName; 
-            return `Country set to ${country}`
+            accountInfo.country = countryName; 
+            return `Country set to ${accountInfo.country}`;
         },
-        uploadAvatar : () => {},
-        changeUsername : () => {},
-        changeEmail : () => {},
+        uploadAvatar : () => {
+            
+        },
+        changeUsername : (newUsername) => {
+            username = newUsername;
+            return `Username changed to ${username}`;
+        },
+        changeEmail : () => {
+        },
         createHero : () => {},
 
         //DANGER ZONE
-        resetAccount : () => {},
+        resetAccount : () => {
+            accountInfo = defaultAccountInfo;
+            return accountInfo;
+        },
         deleteAccount : () => {}
         };
 };
