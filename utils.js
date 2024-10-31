@@ -1,3 +1,8 @@
+//log message to console
+function log(message) {
+  console.log(`Logger: ${message}`);
+}
+
 //capitalize the first char of a string
 function capitalizeFirstChar(input) {
   if (!input) {
@@ -46,7 +51,7 @@ function createDeleteButton(textContent, className = "delete-btn") {
   return deleteBtn;
 }
 
-export { capitalizeFirstChar, getButtonValue, random, checkArrEquality, createDeleteButton };
+export { log, capitalizeFirstChar, getButtonValue, random, checkArrEquality, createDeleteButton };
 
 //Полезные команды
 
