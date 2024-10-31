@@ -272,8 +272,9 @@ changeUsername.addEventListener('click', () => {
 });
 
 const mishgan = createPlayer('Mishgan', 'orenkin@yandex.ru');
-console.log(mishgan.getPlayerInfo());
-console.log(mishgan.resetAccount());
+// console.log(mishgan.getPlayerInfo());
+// console.log(mishgan.resetAccount());
+// console.log(mishgan.getDefaultAccountInfo());
 // playerMishgan.changeEmail();
 // playerMishgan.setCountry();
 // playerMishgan.setAvatar();
@@ -285,16 +286,47 @@ function createPlayer(username, email) {//обязательные параме�
     const defaultAccountInfo = {
         country : 'not selected', 
         avatar : 'not uploaded',
-        heroes : ['not created']
+        heroes : 'not created'
     }
 
-    let accountInfo = defaultAccountInfo;
+    const first = {
+        a : 1,
+        b : 2
+    };
+
+    const second = {
+        c : 3,
+        d : 4
+    };
+
+    const third = {
+        e : 5,
+        f : 6,
+        ...first,
+        ...second
+    };
+console.log('third');
+    console.table(third);
+
+    
+    // console.log('default account info');
+    // console.table(defaultAccountInfo);
+    // //let accountInfo = {...defaultAccountInfo};
+    // console.log('account info and default');
+    // console.table(accountInfo);
+    // console.table(defaultAccountInfo);
+
 
     return {
+
+        getDefaultAccountInfo : () => defaultAccountInfo,
+
         getPlayerInfo : () => `Player ${username}'s Info: Email: ${email}, Country: ${accountInfo.country}, Avatar: ${accountInfo.avatar}, Heroes: ${accountInfo.heroes}`,
         
         setCountry : (countryName) => {
             accountInfo.country = countryName; 
+            console.table(defaultAccountInfo);
+            console.table(accountInfo);
             return `Country set to ${accountInfo.country}`;
         },
         uploadAvatar : () => {
@@ -310,8 +342,8 @@ function createPlayer(username, email) {//обязательные параме�
 
         //DANGER ZONE
         resetAccount : () => {
-            accountInfo = defaultAccountInfo;
-            return accountInfo;
+            // accountInfo = defaultAccountInfo;
+            // return accountInfo;
         },
         deleteAccount : () => {}
         };
