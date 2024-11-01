@@ -128,4 +128,39 @@ log('hello');
 //
 //
 //
-  
+let score = function(x){
+
+    let points = 0;
+    let y = x;
+    console.log(x, y);
+    return function(){
+
+        points += 1;
+        let z = points + y;
+        console.log(x, y, z);
+        return z, points;
+    }();
+}(100);
+
+//points += 100; //ERROR
+// console.log(score());
+// console.log(score());
+// console.log(score());
+
+const calc = (function () {
+  let timesRun = 0;
+  const add = (a, b) => {
+    timesRun++;
+    return `Result: ${a + b}, Times run: ${timesRun}`;
+  };
+  const sub = (a, b) => a - b;
+  return { add, sub };
+})();
+
+const {add, sub} = calc;
+// console.log(calc.add(10, 5));
+// console.log(calc.sub(10, 5));
+console.log(add(10, 5));
+console.log(add(10, 5));
+console.log(add(10, 5));
+
