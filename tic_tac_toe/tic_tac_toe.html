@@ -85,6 +85,8 @@ const board = (function() {
     ];
 
     const getBoard = () => cells;
+    
+    const getWinningCombos = () => winningCombos;
 
     const logBoard = () => console.log(`Game board: ${cells}`);
 
@@ -101,7 +103,7 @@ const board = (function() {
         }
     }
 
-    return {getBoard, logBoard, fillCell, isOccupied};
+    return {getBoard, logBoard, fillCell, isOccupied, getWinningCombos};
 })();
 
 
@@ -110,47 +112,54 @@ const gameController = function() {
     let maxRounds;
     const setMaxRounds = (maxRoundsInput) => maxRounds = maxRoundsInput;
     
-    log('Game begins!');
     player1 = playerCreator('x');
     player2 = playerCreator('o');
     const players = [player1, player2];
-    
-    // player3 = playerCreator('a');
 
-    //const isOccupied = (index) => board.isOccupied
+    function isWinningCombination(markedCells, winningCombos) {
+        if (winningCombos.includes(markedCells)) {
+            return true;
+        }
+    }
     
     let roundsPlayed = 0;
+    const winningCombos = board.getWinningCombos();
+    function playRound() {
+        players.forEach((player, i) => {
+            const markedCell = prompt(`Mark of Player ${i + 1}`);
+            console.log(player.placeMark(markedCell));
+            const markedCells = player.getAllMarkedCells();
+            log(`Marked cells of Player ${i + 1}: ${markedCells}`);
 
-    const playRound = function() {
-        for (let i = 0; i < players.length; i++) {
-        // const currentPlayerID = index % players.length;
-        // log(`${players[currentPlayerID]}, place your mark`)
-        //console.log(players[index].placeMark(3));
-        // console.log(index);
-        const markedCell = prompt(`Mark of Player ${i + 1}`);
-        //log(`Player 1, place your mark`)
-        console.log(players[i].placeMark(markedCell));
-        // ++index;
-        log(`Marked cells of Player ${i + 1}: ${players[i].getAllMarkedCells()}`);
-    }
+            //winning combination check
+            if (isWinningCombination(markedCells, winningCombos)) {
+                console.log(`Player ${i} won!`);
+            }
+            
+        })
         roundsPlayed++;
+
+        if (roundsPlayed < maxRounds) {
+            playRound();
+        }
     }
     
-    while (roundsPlayed < maxRounds) {
-        playRound();
+    function playGame() {
+        log('Game begins!');
+            playRound();
     }
+
     return {
-        playRound, 
-        setMaxRounds
+        setMaxRounds, playGame
     }
 }();
 
-function playerCreator(mark) {
-    let markedCells = [];
-    // let turnsMade = 0;
-    // const addTurn = () => ++turnsMade;
+    function playerCreator(mark) {
+        let markedCells = [];
+        // let turnsMade = 0;
+        // const addTurn = () => ++turnsMade;
 
-    const placeMark = (markedCell) => {
+        const placeMark = (markedCell) => {
             if (board.isOccupied(markedCell)) {
                 console.log('cell is occupied');
             }
@@ -164,18 +173,19 @@ function playerCreator(mark) {
             //console.table(board.getBoard());
             // return {index, markedCells, turnsMade}; 
         };
-    const getMarkedCell = (markedCell) => markedCell;
+        const getMarkedCell = (markedCell) => markedCell;
 
-    const getAllMarkedCells = () => markedCells;
-    
-    return {
-        placeMark,
-        getMarkedCell,
-        getAllMarkedCells
+        const getAllMarkedCells = () => markedCells;
+
+        return {
+            placeMark,
+            getMarkedCell,
+            getAllMarkedCells
+        }
     }
-}
 
 gameController.setMaxRounds(3);
+gameController.playGame();
 
 
 //player1 = playerCreator('x');
