@@ -89,7 +89,9 @@ const board = (function() {
     const logBoard = () => console.log(`Game board: ${cells}`);
 
     const fillCell = (index, mark) => {
-        cells[index] = mark;
+        cells[index - 1] = mark;
+        log(`Cells after filling:`);
+        console.table(cells);
         return cells;
     }
 
@@ -104,54 +106,77 @@ const board = (function() {
 
 
 const gameController = function() {
+    
+    let maxRounds;
+    const setMaxRounds = (maxRoundsInput) => maxRounds = maxRoundsInput;
+    
     log('Game begins!');
     player1 = playerCreator('x');
     player2 = playerCreator('o');
+    const players = [player1, player2];
+    
     // player3 = playerCreator('a');
 
     //const isOccupied = (index) => board.isOccupied
-
-    // const players = [player1, player2, player3];
-    // let index = 0;
     
+    let roundsPlayed = 0;
+
     const playRound = function() {
+        for (let i = 0; i < players.length; i++) {
         // const currentPlayerID = index % players.length;
         // log(`${players[currentPlayerID]}, place your mark`)
         //console.log(players[index].placeMark(3));
         // console.log(index);
-        log(`Player 1, place your mark`)
-        console.log(player1.placeMark(3))
-        const mark = player1.getMarkedCell(3);
+        const markedCell = prompt(`Mark of Player ${i + 1}`);
+        //log(`Player 1, place your mark`)
+        console.log(players[i].placeMark(markedCell));
         // ++index;
-        if (board.isOccupied(mark)) {
-            console.log('cell is occupied');
-        }
-        
+        log(`Marked cells of Player ${i + 1}: ${players[i].getAllMarkedCells()}`);
     }
-    playRound();
-    playRound();
-    playRound();
+        roundsPlayed++;
+    }
+    
+    while (roundsPlayed < maxRounds) {
+        playRound();
+    }
+    return {
+        playRound, 
+        setMaxRounds
+    }
 }();
 
 function playerCreator(mark) {
     let markedCells = [];
-    let turnsMade = 0;
-    const addTurn = () => ++turnsMade;
-    
-    return {
-        placeMark : (index) => {
-            board.fillCell(index, mark);
-            markedCells.push(index);
-            addTurn();
+    // let turnsMade = 0;
+    // const addTurn = () => ++turnsMade;
+
+    const placeMark = (markedCell) => {
+            if (board.isOccupied(markedCell)) {
+                console.log('cell is occupied');
+            }
+            board.fillCell(markedCell, mark);
+            log(`Placed mark on cell ${markedCell}`);
+            markedCells.push(markedCell);
+            // console.log(`Marked cells: ${markedCells}`);
+            //addTurn();
             board.logBoard();
             //log('Board after marking:')
             //console.table(board.getBoard());
             // return {index, markedCells, turnsMade}; 
-        },
-        getMarkedCell : (index) => index,
-        getAllMarkedCells : () => markedCells
+        };
+    const getMarkedCell = (markedCell) => markedCell;
+
+    const getAllMarkedCells = () => markedCells;
+    
+    return {
+        placeMark,
+        getMarkedCell,
+        getAllMarkedCells
     }
 }
+
+gameController.setMaxRounds(3);
+
 
 //player1 = playerCreator('x');
 // console.log(player1.placeMark(3));
