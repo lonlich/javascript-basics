@@ -5,7 +5,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Sandbox</title>
+        <title>Tic Tac Toe1</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link
@@ -64,23 +64,127 @@
     
 </body>
 <script>
-const gameboard = (function() {
-    
+
+//utility
+function log(message) {
+  console.log(`Logger: ${message}`);
+}
+
+//main
+const board = (function() {
+    cells = ['', '', '', '', '', '', '', '', ''];
+    winningCombos = [
+        ['1', '2', '3'],
+        ['4', '5', '6'],
+        ['7', '8', '9'],
+        ['1', '4', '7'],
+        ['2', '5', '8'],
+        ['3', '6', '9'],
+        ['1', '5', '9'],
+        ['3', '5', '7']
+    ];
+
+    const getBoard = () => cells;
+
+    const logBoard = () => console.log(`Game board: ${cells}`);
+
+    const fillCell = (index, mark) => {
+        cells[index] = mark;
+        return cells;
+    }
+
+    const isOccupied = function(mark) {
+        if (cells[mark]) {
+            return true;
+        }
+    }
+
+    return {getBoard, logBoard, fillCell, isOccupied};
 })();
+
+
+const gameController = function() {
+    log('Game begins!');
+    player1 = playerCreator('x');
+    player2 = playerCreator('o');
+    // player3 = playerCreator('a');
+
+    //const isOccupied = (index) => board.isOccupied
+
+    // const players = [player1, player2, player3];
+    // let index = 0;
+    
+    const playRound = function() {
+        // const currentPlayerID = index % players.length;
+        // log(`${players[currentPlayerID]}, place your mark`)
+        //console.log(players[index].placeMark(3));
+        // console.log(index);
+        log(`Player 1, place your mark`)
+        console.log(player1.placeMark(3))
+        const mark = player1.getMarkedCell(3);
+        // ++index;
+        if (board.isOccupied(mark)) {
+            console.log('cell is occupied');
+        }
+        
+    }
+    playRound();
+    playRound();
+    playRound();
+}();
 
 function playerCreator(mark) {
     let markedCells = [];
-    let turns = 0;
+    let turnsMade = 0;
+    const addTurn = () => ++turnsMade;
+    
     return {
         placeMark : (index) => {
-        return markedCells.push(index); ?????????????????????????
-        //turns ++;
-        }
+            board.fillCell(index, mark);
+            markedCells.push(index);
+            addTurn();
+            board.logBoard();
+            //log('Board after marking:')
+            //console.table(board.getBoard());
+            // return {index, markedCells, turnsMade}; 
+        },
+        getMarkedCell : (index) => index,
+        getAllMarkedCells : () => markedCells
     }
 }
 
-player1 = playerCreator('x');
-console.log(player1.placeMark(3));
+//player1 = playerCreator('x');
+// console.log(player1.placeMark(3));
+// // console.log(player1.markedCells());
+// //console.table(board.getBoard());
+// console.log(player1.placeMark(3));
+// console.log(player1.placeMark(7));
 </script>
 
 </html>
+
+
+
+
+
+
+
+<!-- Условия победы:
+- когда сделано три хода одним из игроков + когда массив из выбранных им клеток соответствует одной из выигрышных комбинаций
+
+Условия ничьи: 
+- когда сделано три хода обоими игроками + когда массивы из выбранных клеток обоими игроками не совпадают ни с одной из выигрышных комбинаций
+
+Как проходит раунд:
+gameController.playRound()
+    - колл к методу placeMark первым игроком => проверка, занята ли клетка, вызовом метода board.isCellOccupied?
+        - если нет => запись выбранной клетки в массив + запись отметки игрока в ячейку массива
+        - если да => вывод сообщения о том,что клетка занята => повторный колл к методу placeMark => запись выбранной клетки в массив + запись отметки игрока в ячейку массива
+    - проверяется, сделано ли три хода первым игроком и является ли его комбинация выигрышной => сравнение с массивом выигрышных комбинаций:
+            - если да, сообщение о выигрыше первым игроком
+            - если нет, переход к следующему игроку
+    - колл к методу placeMark вторым игроком => 
+    все то же самое, разница только в финальной проверке:
+    - проверяется, сделано ли три хода вторым игроком и является ли его комбинация выигрышной => сравнение с массивом выигрышных комбинаций:
+            - если да, сообщение о выигрыше вторым игроком
+            - если нет, сообщение о ничье -->
