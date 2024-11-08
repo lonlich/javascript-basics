@@ -98,7 +98,7 @@ const board = (function() {
     }
 
     const isOccupied = function(mark) {
-        if (cells[mark]) {
+        if (cells[mark - 1]) {
             return true;
         }
     }
@@ -116,32 +116,39 @@ const gameController = function() {
     player2 = playerCreator('o');
     const players = [player1, player2];
 
-    function isWinningCombination(markedCells, winningCombos) {
-        if (winningCombos.includes(markedCells)) {
-            return true;
-        }
-    }
+    //нужно пройтись по каждому айтему winningCombos 
+    //если все элементы (every) хотя бы одного айтема (some) равны всем элементам markedCells => вернуть тру
+    function isWinningCombo(markedCells, winningCombos) {
+        const markedSorted = [...markedCells].sort();
+        return winningCombos.some((item) => {
+            return item.length === markedSorted.length && item.every((elem, index) => elem === markedSorted[index]) 
+        });
+    }   
+
+    function promptForPlayerMark(playerIndex) {
+        return prompt(`Mark of Player ${playerIndex + 1}`);
+    };
+
     
     let roundsPlayed = 0;
     const winningCombos = board.getWinningCombos();
     function playRound() {
-        players.forEach((player, i) => {
-            const markedCell = prompt(`Mark of Player ${i + 1}`);
+
+        for (const [i, player] of players.entries()) {
+            const markedCell = promptForPlayerMark(i);
             console.log(player.placeMark(markedCell));
             const markedCells = player.gegitAllMarkedCells();
             log(`Marked cells of Player ${i + 1}: ${markedCells}`);
-
-            //winning combination check
-            if (isWinningCombination(markedCells, winningCombos)) {
-                console.log(`Player ${i} won!`);
+            console.log(roundsPlayed);
+            //check for winning combination in the last round
+            if (roundsPlayed === maxRounds && isWinningCombo(markedCells, winningCombos)) {
+                console.log(`Player ${i + 1} won!`);
+                break;
             }
-            
-        })
-        roundsPlayed++;
-
-        if (roundsPlayed < maxRounds) {
-            playRound();
         }
+
+        roundsPlayed++;
+        playRound();
     }
     
     function playGame() {
@@ -161,7 +168,9 @@ const gameController = function() {
 
         const placeMark = (markedCell) => {
             if (board.isOccupied(markedCell)) {
-                console.log('cell is occupied');
+                //console.log('cell is occupied');
+                markedCell = prompt(`Cell is occupied, choose a different one`);
+                placeMark(markedCell);
             }
             board.fillCell(markedCell, mark);
             log(`Placed mark on cell ${markedCell}`);
@@ -199,7 +208,7 @@ gameController.playGame();
 </html>
 
 
-
+TODO: РАЗОБРАТЬСЯ СО СЧЧЕТЧИКОМ РАУНДОВ
 
 
 
