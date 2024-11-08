@@ -128,7 +128,7 @@ const gameController = function() {
         players.forEach((player, i) => {
             const markedCell = prompt(`Mark of Player ${i + 1}`);
             console.log(player.placeMark(markedCell));
-            const markedCells = player.getAllMarkedCells();
+            const markedCells = player.gegitAllMarkedCells();
             log(`Marked cells of Player ${i + 1}: ${markedCells}`);
 
             //winning combination check
