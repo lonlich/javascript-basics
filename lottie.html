@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lottie Scroll Animation</title>
+  <!-- Include the Lottie library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"></script>
+  <style>
+    /* Style for the animation container */
+    .animation-container {
+      width: 100%;
+      max-width: 500px;
+      height: 500px;
+      margin: 50vh auto; /* Centers the div vertically on scroll */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Container for the animation -->
+  <div class="animation-container" id="lottie-animation"></div>
+
+  <script>
+    // Load the Lottie animation inside the container
+    const animation = lottie.loadAnimation({
+      container: document.getElementById('lottie-animation'), // Target container
+      renderer: 'svg', // Render type
+      loop: false,      // Don't loop, will control via scroll
+      autoplay: false,  // Don't autoplay, we'll control playback
+      path: 'lottie1.json' // JSON file URL for animation
+    });
+
+    // Control the animation progress on scroll
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollFraction = scrollTop / maxScroll;
+
+      // Set the animation progress based on the scroll fraction
+      animation.goToAndStop(scrollFraction * animation.totalFrames, true);
+    });
+  </script>
+</body>
+</html>
