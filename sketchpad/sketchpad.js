@@ -89,7 +89,7 @@ start.addEventListener('click', () => {
     alert('Enter number of "pixels');
     return;
   }
- 
+
   fillContainer(divsPerRow);
 });
 
