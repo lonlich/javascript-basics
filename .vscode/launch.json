@@ -8,7 +8,7 @@
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome with Live Server",
-      "url": "http://127.0.0.1:8080/sketchpad/calculator/calculator.html", // or your specific HTML fileLive Server's default port
+      "url": "http://127.0.0.1:5501", // or your specific HTML fileLive Server's default port
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
       "preLaunchTask": "Start Live Server"

@@ -12,6 +12,7 @@
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
             rel="stylesheet">
         <link rel="stylesheet" href="style.css">
+        <!-- <script src="script.js" defer></script> -->
         <style>
             p {
                 margin: 0.5em 0;
@@ -119,6 +120,12 @@ const board = (function() {
         }
     }
 
+    const clearBoard = () => {
+        cells.forEach(cell => {
+            cell = '';
+        });
+    }
+
     return {getBoard, logBoard, fillCell, isOccupied, getWinningCombos};
 })();
 
@@ -150,41 +157,54 @@ const gameController = function() {
         log(`Player ${playerIndex + 1}, select your cell on the board`);
         return new Promise ((resolve) => {
             allCells.addEventListener('click', function handleClick(e) {
-                const markedCell = e.target;
-                log(`Marked cell is ${markedCell}`);
+                const markedCellElem = e.target;
+                const markedCellNumber = markedCellElem.dataset.number;
+
+                if (board.isOccupied(markedCellNumber)) {
+                    console.log('This cell is occupied, choose a different one');
+                    return;
+                    // markedCell = prompt(`Cell is occupied, choose a different one`);
+                    // placeMark(markedCell);
+                }
+
+                log(`Marked cell Number is ${markedCellNumber}`);
 
                 if (playerIndex === 0) {
-                    markedCell.classList.add('marked-p1')
-                    markedCell.textContent = 'X';
+                    markedCellElem.classList.add('marked-p1')
+                    markedCellElem.textContent = 'X';
                 }
                 
                 if (playerIndex === 1) {
-                    markedCell.classList.add('marked-p2')
-                    markedCell.textContent = 'O';
+                    markedCellElem.classList.add('marked-p2')
+                    markedCellElem.textContent = 'O';
                 }
+
+            allCells.removeEventListener('click', handleClick)
             
-            resolve(markedCell.dataset.number);
+            resolve(markedCellNumber);
             });
 
         });
     }
-
     
     let roundsPlayed = 0;
+    let gameOver = false;
     const winningCombos = board.getWinningCombos();
 
     async function playRound() {
         for (const [i, player] of players.entries()) {
             // const markedCell = promptForPlayerMark(i);
             const markedCell = await markCell(i);
-            console.log(player.placeMark(markedCell));
+            player.placeMark(markedCell);
             const markedCells = player.getAllMarkedCells();
             log(`Marked cells of Player ${i + 1}: ${markedCells}`);
             console.log(roundsPlayed);
             //check for winning combination in the last round
-            if (roundsPlayed === maxRounds && isWinningCombo(markedCells, winningCombos)) {
+            if (isWinningCombo(markedCells, winningCombos)) {
                 console.log(`Player ${i + 1} won!`);
-                break;
+                start.textContent = 'Restart';
+                //TODO
+                return;
             }
         }
         roundsPlayed++;
@@ -207,11 +227,6 @@ const gameController = function() {
         // const addTurn = () => ++turnsMade;
 
         const placeMark = (markedCell) => {
-            if (board.isOccupied(markedCell)) {
-                //console.log('cell is occupied');
-                markedCell = prompt(`Cell is occupied, choose a different one`);
-                placeMark(markedCell);
-            }
             board.fillCell(markedCell, mark);
             log(`Placed mark on cell ${markedCell}`);
             markedCells.push(markedCell);
