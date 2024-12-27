@@ -90,6 +90,7 @@ function log(message) {
 //main
 const board = (function() {
     cells = ['', '', '', '', '', '', '', '', ''];
+    const cellsElems = document.querySelectorAll('.tic-tac-toe .cell');
     winningCombos = [
         ['1', '2', '3'],
         ['4', '5', '6'],
@@ -102,6 +103,8 @@ const board = (function() {
     ];
 
     const getBoard = () => cells;
+
+    const getCellsElems = () => cellsElems;
     
     const getWinningCombos = () => winningCombos;
 
@@ -121,12 +124,14 @@ const board = (function() {
     }
 
     const clearBoard = () => {
-        cells.forEach(cell => {
-            cell = '';
+        cells.fill('');
+        cellsElems.forEach(elem => {
+            elem.textContent = '';
         });
+        //TODO: почему код с обновлением текст контента в ячейках с помощью foreach работает?
     }
 
-    return {getBoard, logBoard, fillCell, isOccupied, getWinningCombos};
+    return {getBoard, logBoard, fillCell, isOccupied, getWinningCombos, clearBoard, getCellsElems};
 })();
 
 
@@ -188,9 +193,7 @@ const gameController = function() {
     }
     
     let roundsPlayed = 0;
-    let gameOver = false;
     const winningCombos = board.getWinningCombos();
-
     async function playRound() {
         for (const [i, player] of players.entries()) {
             // const markedCell = promptForPlayerMark(i);
@@ -203,7 +206,7 @@ const gameController = function() {
             if (isWinningCombo(markedCells, winningCombos)) {
                 console.log(`Player ${i + 1} won!`);
                 start.textContent = 'Restart';
-                //TODO
+                gameOver = true;
                 return;
             }
         }
@@ -252,7 +255,11 @@ gameController.setMaxRounds(3);
 //gameController.playGame();
 
 const start = document.querySelector('#start');
+let gameOver = false;
 start.addEventListener('click', () => {
+    if (gameOver) {
+        board.clearBoard();
+    }
     gameController.playGame();
 });
 
